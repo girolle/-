@@ -1,14 +1,22 @@
 //console.log('In Node We Trust');
 
-const http = require('http');
+const express = require('express');
+// Слушаем 3000 порт
+const { PORT = 3000 } = process.env;
 
-// создаём сервер
-const server = http.createServer((req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'text/html; charset=utf8'
-});
-// в методе end тоже можно передать данные
-res.end('<h1>Привет, мир!</h1>', 'utf8');
-});
+const app = express();
 
-server.listen(3000); // будем принимать сообщения с 3000 порта
+app.get('/', (req, res) => {
+  res.send(
+        `<html>
+        <body>
+            <p>Ответ на сигнал из далёкого космоса</p>
+        </body>
+        </html>`
+    );
+}); 
+
+app.listen(PORT, () => {
+    // Если всё работает, консоль покажет, какой порт приложение слушает
+    console.log(`App listening on port ${PORT}`)
+}) 
