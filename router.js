@@ -6,12 +6,14 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/users/:id', (req, res) => {
-  if (!users[req.params.id]) {
-    res.send(`Такого пользователя нет`);
+  const { id } = req.params;
+
+  if (!users[id]) {
+    res.send(`Такого id нет`);
     return;
   }
 
-  const { name, age } = users[req.params.id];
+  const { name, age } = users[id];
 
   res.send(`Пользователь ${name}, ${age} лет`);
 });
