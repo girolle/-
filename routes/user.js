@@ -26,4 +26,13 @@ router.get('/user_age/:age', (req, res) => {
     .catch(err => res.status(500).send({ message: 'Произошла ошибка' }));
 });
 
+router.post('/user', (req, res) => {
+  const { name, age } = req.body;
+  User.create({ name, age })
+    // вернём записанные в базу данные
+    .then(user => res.send({ user }))
+    // данные не записались, вернём ошибку
+    .catch(err => res.status(500).send({ message: 'Произошла ошибка' }));
+}); 
+
 module.exports = router; // экспортировали роутер
