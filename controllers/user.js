@@ -11,9 +11,9 @@ module.exports.findOllUser = (req, res) => {
   
 
 module.exports.createUser = (req, res) => {
-    const { name, age } = req.body;
+    const { name, about, avatar } = req.body;
 
-    User.create({ name, age })
-        .then(user => res.send({ name: user.name, age: user.age }))
+    User.create({ name, about, avatar })
+        .then(user => res.send({ name: user.name, about: user.about }))
         .catch(() => res.status(500).send({ message: 'Произошла ошибка createUser' }));
 }; 
