@@ -7,11 +7,6 @@ const userSchema = new mongoose.Schema({
     minlength: 2, // минимальная длина имени — 2 символа
     maxlength: 30, // а максимальная — 30 символов
   },
-  //gender: {
-  //  type: String, // гендер — это строка
-  //  enum: ['м', 'ж', 'другой'] // gender может принимать одно из трёх значений
-  //},
-  //about: String, // тип — String
   age: {
       type: Number,
       required: true,
