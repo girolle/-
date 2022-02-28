@@ -1,5 +1,6 @@
 const express = require('express');
-const router = require('./routes/user.js'); // импортируем роутер
+const router = require('./routes/users.js'); // импортируем роутер
+const rout = require('./routes/cards.js'); // импортируем роутер
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', router); // запускаем
+app.use('/', rout); // запускаем
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
