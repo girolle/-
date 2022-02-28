@@ -23,10 +23,12 @@ const cardSchema = new mongoose.Schema({
     {     // по умолчанию — пустой массив (поле default)
       type: mongoose.Types.ObjectId,
       ref: 'user',
+      required: true, // обязательное поле
     },
   ],
-  createdAt: { //  дата создания:
-    type: Date, // это Date, значение по умолчанию Date.now
+  createdAt: {    //  дата создания:
+    type: Date,         // это Date
+    default: Date.now(),//значение по умолчанию Date.now
     required: true, // обязательное поле
   },
 });

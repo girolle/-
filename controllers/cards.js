@@ -8,9 +8,8 @@ module.exports.createCard = (req, res) => {
   const owner = req.user._id;
   const { name, link } = req.body;
   const likes = [];
-  const createdAt = "";//Date.now;
 
-  Card.create({ name, link, owner, likes, createdAt })
+  Card.create({ name, link, owner, likes })
     .then(card => res.send({ name: card.name }))
     //.catch((err) => {console.log(err)});
     .catch((err) => { console.dir(err); res.status(500).send({ message: 'Произошла ошибка createCard' }) });

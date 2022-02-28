@@ -1,11 +1,11 @@
 // routes/users.js
 // это файл маршрутов
 
-const router = require('express').Router(); // создали роутер
+const routerUsers = require('express').Router(); // создали роутер
 const { createUser, getUserID, getUsers } = require('../controllers/users');
 
-router.get('/users/:id', getUserID);
-router.get('/users', getUsers);
-router.post('/users', createUser);
+routerUsers.get('/users/:id', getUserID);
+routerUsers.get('/users', getUsers);
+routerUsers.post('/users', createUser);
 
-module.exports = router; // экспортировали роутер
+module.exports = routerUsers; // экспортировали роутер
