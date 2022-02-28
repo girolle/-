@@ -20,3 +20,9 @@ module.exports.getCards = (req, res) => {
     .then(cards => res.send({ cards: cards }))//
     .catch(() => res.status(500).send({ message: 'Произошла ошибка getCards' }));
 };
+
+module.exports.deleteCard = (req, res) => {
+  Card.findByIdAndRemove(req.params.id) //
+    .then(card => res.send({ card: card }))//
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка deleteCard' }));
+};
