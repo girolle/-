@@ -2,9 +2,10 @@
 // это файл маршрутов
 
 const router = require('express').Router(); // создали роутер
-const { createUser, findOllUser } = require('../controllers/user');
+const { createUser, getUserID, getUsers } = require('../controllers/user');
 
-router.get('/users', findOllUser);
-router.post('/users', createUser); 
+router.get('/users/:id', getUserID);
+router.get('/users', getUsers);
+router.post('/users', createUser);
 
 module.exports = router; // экспортировали роутер
