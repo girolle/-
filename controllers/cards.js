@@ -12,19 +12,19 @@ module.exports.createCard = (req, res) => {
   Card.create({ name, link, owner, likes })
     .then(card => res.send({ name: card.name }))
     //.catch((err) => {console.log(err)});
-    .catch((err) => { console.dir(err); res.status(500).send({ message: 'Произошла ошибка createCard' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка создания карточки' }) });
 };
 
 module.exports.getCards = (req, res) => {
   Card.find({}) //запрос всех
     .then(cards => res.send({ cards: cards }))//
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка getCards' }));
+    .catch(() => res.status(404).send({ message: 'Ошибка - карточки не найдены' }));
 };
 
 module.exports.deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.id) //
     .then(card => res.send({ card: card }))//
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка deleteCard' }));
+    .catch(() => res.status(500).send({ message: 'Ошибка удаления карточки' }));
 };
 
 
@@ -36,7 +36,7 @@ module.exports.likeCard = (req, res) => {
     { new: true },
   )
   .then(card => res.send({ card: card }))//
-  .catch(() => res.status(500).send({ message: 'Произошла ошибка likeCard' }));
+  .catch(() => res.status(500).send({ message: 'Ошибка при лайке карточки' }));
 };
 
 module.exports.dislikeCard = (req, res) => {
@@ -46,5 +46,5 @@ module.exports.dislikeCard = (req, res) => {
     { new: true },
   )
   .then(card => res.send({ card: card }))//
-  .catch(() => res.status(500).send({ message: 'Произошла ошибка dislikeCard' }));
+  .catch(() => res.status(500).send({ message: 'Ошибка снятия лайка карточки' }));
 };

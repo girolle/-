@@ -5,15 +5,15 @@ const User = require('../models/user');
 
 module.exports.getUserID = (req, res) => {
   User.findById(req.params.id)//запрос одного
-    .then(users => res.send({ name: users.name }))
+    .then(users => res.send({ name: users.name, about: users.about, avatar: users.avatar, _id: users.id }))
     //.catch(() => res.status(500).send({ message: 'Произошла ошибка getUser' }));
-    .catch((err) => { console.dir(err); res.send({ message: 'Произошла ошибка getUser_id' }) });
+    .catch((err) => { console.dir(err); res.status(404).send({ message: 'Запрашиваемый пользователь не найден' }) });
 };
 
 module.exports.getUsers = (req, res) => {
   User.find({}) //запрос всех
-    .then(users => res.send({ users: users }))//
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка getUsers' }));
+    .then(users => res.send({ name: users[0].name, about: users[0].about, avatar: users[0].avatar, _id: users[0].id }))//
+    .catch(() => res.status(500).send({ message: 'Ошибка чтения всех пользователей' }));
 };
 
 module.exports.createUser = (req, res) => {
@@ -21,9 +21,8 @@ module.exports.createUser = (req, res) => {
 
   User.create({ name, about, avatar })
     .then(user => res.send({ name: user.name, about: user.about }))
-    //.catch(() => res.status(500).send({ message: 'Произошла ошибка createUser' }));
     //.catch((err) => {console.log(err)});
-    .catch((err) => { console.dir(err); res.send({ message: 'Произошла ошибка createUser' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка создания пользователя' }) });
 };
 
 
@@ -39,7 +38,7 @@ module.exports.updateProfileUser = (req, res) => {
     }
   )
     .then(user => res.send({ name: user.name, about: user.about }))
-    .catch((err) => { console.dir(err); res.status(500).send({ message: 'Произошла ошибка updateProfileUser' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка редактирования профиля' }) });
 };
 
 module.exports.updateAvatarUser = (req, res) => {
@@ -54,5 +53,5 @@ module.exports.updateAvatarUser = (req, res) => {
     }
   )
     .then(user => res.send({ avatar: user.avatar }))
-    .catch((err) => { console.dir(err); res.status(500).send({ message: 'Произошла ошибка updateAvatarUser' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка редактирования аватара' }) });
 };
