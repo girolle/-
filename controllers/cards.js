@@ -10,7 +10,7 @@ module.exports.createCard = (req, res) => {
   const likes = [];
 
   Card.create({ name, link, owner, likes })
-    .then(card => res.send({ 
+    .then(card => res.send({
       createdAt: card.createdAt,
       likes: card.likes,
       link: card.link,
@@ -18,20 +18,19 @@ module.exports.createCard = (req, res) => {
       owner: card.owner,
       _id: card.id
     }))
-    //.catch((err) => {console.log(err)});
-    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка создания карточки' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Переданы некорректные данные при создании карточки' }) });
 };
 
 module.exports.getCards = (req, res) => {
   Card.find({}) //запрос всех
     .then(cards => res.send({ cards }))//
-    .catch(() => res.status(404).send({ message: 'Ошибка - карточки не найдены' }));
+    .catch((err) => { console.dir(err); res.status(500).send({ message: 'Запрашиваемые карточки не найдены' }) });
 };
 
 module.exports.deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.id) //
     .then(card => res.send({ message: 'Пост удален' }))//
-    .catch(() => res.status(500).send({ message: 'Ошибка удаления карточки' }));
+    .catch((err) => { console.dir(err); res.status(404).send({ message: 'Карточка с указанным _id не найдена' }) });
 };
 
 
@@ -50,7 +49,7 @@ module.exports.likeCard = (req, res) => {
     owner: card.owner,
     _id: card.id
   }))//
-  .catch(() => res.status(500).send({ message: 'Ошибка при лайке карточки' }));
+  .catch((err) => { console.dir(err); res.status(400).send({ message: 'Переданы некорректные данные для постановки лайка' }) });
 };
 
 module.exports.dislikeCard = (req, res) => {
@@ -67,5 +66,5 @@ module.exports.dislikeCard = (req, res) => {
     owner: card.owner,
     _id: card.id
   }))//
-  .catch(() => res.status(500).send({ message: 'Ошибка снятия лайка карточки' }));
+  .catch((err) => { console.dir(err); res.status(400).send({ message: 'Переданы некорректные данные для снятии лайка' }) });
 };

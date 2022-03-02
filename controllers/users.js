@@ -5,39 +5,37 @@ const User = require('../models/user');
 
 module.exports.getUserID = (req, res) => {
   User.findById(req.params.id)//запрос одного
-    .then(users => res.send({ 
-      about: users.about, 
-      avatar: users.avatar, 
-      name: users.name, 
-      _id: users.id 
+    .then(users => res.send({
+      about: users.about,
+      avatar: users.avatar,
+      name: users.name,
+      _id: users.id
     }))
-    //.catch(() => res.status(500).send({ message: 'Произошла ошибка getUser' }));
-    .catch((err) => { console.dir(err); res.status(404).send({ message: 'Запрашиваемый пользователь не найден' }) });
+    .catch((err) => { console.dir(err); res.status(404).send({ message: 'Пользователь по указанному _id не найден' }) });
 };
 
 module.exports.getUsers = (req, res) => {
   User.find({}) //запрос всех
-    .then(users => res.send({ 
-      name: users[0].name, 
-      about: users[0].about, 
-      avatar: users[0].avatar, 
-      _id: users[0].id 
+    .then(users => res.send({
+      name: users[0].name,
+      about: users[0].about,
+      avatar: users[0].avatar,
+      _id: users[0].id
     }))//
-    .catch(() => res.status(500).send({ message: 'Ошибка чтения всех пользователей' }));
+    .catch((err) => { console.dir(err); res.status(500).send({ message: 'Ошибка чтения всех пользователей' }) });
 };
 
 module.exports.createUser = (req, res) => {
   const { name, about, avatar } = req.body;
 
   User.create({ name, about, avatar })
-    .then(user => res.send({ 
-      about: user.about, 
-      avatar: user.avatar, 
-      name: user.name, 
-      _id: user.id 
+    .then(user => res.send({
+      about: user.about,
+      avatar: user.avatar,
+      name: user.name,
+      _id: user.id
     }))
-    //.catch((err) => {console.log(err)});
-    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка создания пользователя' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Переданы некорректные данные при создании пользователя' }) });
 };
 
 
@@ -52,13 +50,13 @@ module.exports.updateProfileUser = (req, res) => {
       upsert: true // если пользователь не найден, он будет создан
     }
   )
-    .then(user => res.send({ 
-      about: user.about, 
-      avatar: user.avatar, 
-      name: user.name, 
-      _id: user.id 
+    .then(user => res.send({
+      about: user.about,
+      avatar: user.avatar,
+      name: user.name,
+      _id: user.id
     }))
-    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка редактирования профиля' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Переданы некорректные данные при обновлении профиля' }) });
 };
 
 module.exports.updateAvatarUser = (req, res) => {
@@ -72,11 +70,11 @@ module.exports.updateAvatarUser = (req, res) => {
       upsert: true // если пользователь не найден, он будет создан
     }
   )
-    .then(user => res.send({ 
-      about: user.about, 
-      avatar: user.avatar, 
-      name: user.name, 
-      _id: user.id 
+    .then(user => res.send({
+      about: user.about,
+      avatar: user.avatar,
+      name: user.name,
+      _id: user.id
     }))
-    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Ошибка редактирования аватара' }) });
+    .catch((err) => { console.dir(err); res.status(400).send({ message: 'Переданы некорректные данные при обновлении аватара' }) });
 };
