@@ -2,7 +2,6 @@
 # Проект Mesto фронтенд + бэкенд
 
 
-
 * [Ссылка на GitHub](https://github.com/Sher-Kon/express-mesto-gha.git)
 
 ## Директории
